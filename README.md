@@ -2,7 +2,7 @@
 
 Testing Repo for VR
 
-Note that this (actual production VR app) is published at: http://nicostepan.me/VRTestApp/Hello360
+Note that this (actual production VR app) is published at: http://nicostepan.me/VR/ and then by clicking one of the links
 
 ## TODOs
 - https://developer.oculus.com/documentation/oculus-browser/latest/concepts/browser-intro/
