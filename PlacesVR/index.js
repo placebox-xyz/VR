@@ -30,11 +30,18 @@ export default class Hello360 extends React.Component {
     this.setState({ menuHidden: false });
   };
 
-  changeBackground() {
+  changeBackgroundWatchman() {
+    Environment.setBackgroundImage(
+      asset("watchman_trail.jpg"),
+      { format: "2D" } /* one of the formats mentioned above */
+    );
+  }
+
+  changeBackgroundCalg() {
     // Set the background to a 360 or 180 image
     Environment.setBackgroundImage(
       asset("calg.jpg"),
-      { format: "2D" } /* one of the formats mentioned above */
+      { format: "2D" }
     );
   }
 
@@ -55,18 +62,21 @@ export default class Hello360 extends React.Component {
             </VrButton>
           </View>
           <View style={styles.placesPanel}>
+
             <VrButton
-              onClick={this.changeBackground}
+              onClick={this.changeBackgroundCalg}
               style={styles.greetingBox}
             >
               <Text style={styles.greeting}>Kananaskis</Text>
             </VrButton>
+
             <VrButton
-              onClick={this.changeBackground}
+              onClick={this.changeBackgroundWatchman}
               style={styles.greetingBox}
             >
-              <Text style={styles.greeting}>Kananaskis</Text>
+              <Text style={styles.greeting}>Watchman Trail - Zion National Park</Text>
             </VrButton>
+
             <VrButton
               onClick={this.clearBackground}
               style={styles.clearBox}
