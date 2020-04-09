@@ -30,26 +30,27 @@ export default class Hello360 extends React.Component {
     this.setState({ menuHidden: false });
   };
 
-  changeBackgroundWatchman() {
-    Environment.setBackgroundImage(
-      asset("watchman_trail.jpg"),
-      { format: "2D" } /* one of the formats mentioned above */
-    );
-  }
-
-  changeBackgroundCalg() {
-    // Set the background to a 360 or 180 image
-    Environment.setBackgroundImage(
-      asset("calg.jpg"),
-      { format: "2D" }
-    );
-  }
-
-  clearBackground() {
-    Environment.setBackgroundImage(
-      asset("360_world.jpg"),
-      { format: "2D" } /* one of the formats mentioned above */
-    );
+  handleBackgroundChange = (b) => {
+    switch (b) {
+      case "calg":
+        Environment.setBackgroundImage(
+          asset("calg.jpg"),
+          { format: "2D" }
+        );
+        break;
+      case "watchman":
+        Environment.setBackgroundImage(
+          asset("watchman_trail.jpg"),
+          { format: "2D" } 
+        );
+        break;
+      default:
+        Environment.setBackgroundImage(
+          asset("360_world.jpg"),
+          { format: "2D" } 
+        );
+        break;
+    }
   }
 
   render() {
@@ -64,21 +65,21 @@ export default class Hello360 extends React.Component {
           <View style={styles.placesPanel}>
 
             <VrButton
-              onClick={this.changeBackgroundCalg}
+              onClick={() => this.handleBackgroundChange("calg")}
               style={styles.greetingBox}
             >
               <Text style={styles.greeting}>Kananaskis</Text>
             </VrButton>
 
             <VrButton
-              onClick={this.changeBackgroundWatchman}
+              onClick={() => this.handleBackgroundChange("watchman")}
               style={styles.greetingBox}
             >
               <Text style={styles.greeting}>Watchman Trail - Zion National Park</Text>
             </VrButton>
 
             <VrButton
-              onClick={this.clearBackground}
+              onClick={() => this.handleBackgroundChange("")}
               style={styles.clearBox}
             >
               <Text style={styles.clearText}>Clear</Text>
