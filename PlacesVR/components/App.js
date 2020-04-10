@@ -11,11 +11,13 @@ import {
 // firebase stuff goes in here (to determine if authenticated)
 
 import Landing from "./Landing/Landing";
+import SignIn from "./SignIn/SignIn"
 
 export default class App extends React.Component {
   render() {
     return (
-      <Landing />
+      // <Landing />
+      <SignIn />
     );
   }
 };

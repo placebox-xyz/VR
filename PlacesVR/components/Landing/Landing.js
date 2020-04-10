@@ -16,12 +16,14 @@ import {registerKeyboard} from 'react-360-keyboard';
 AppRegistry.registerComponent(...registerKeyboard);
 
 export default class Landing extends React.Component {
-
-state = {
-    loggedIn: false,
-    menuHidden: false,
-    currentBackground: "360_world.jpg",
-  };
+    constructor() {
+        super();
+        this.state = {
+            loggedIn: false,
+            menuHidden: false,
+            currentBackground: "360_world.jpg",
+          };
+    }
 
   // This method increments our count, triggering a re-render
   // incrementCount = () => {
