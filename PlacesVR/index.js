@@ -9,6 +9,5 @@ export default class PlacesVR extends React.Component {
     );
   }
 }
-// Our component will keep track of this state
 
 AppRegistry.registerComponent("PlacesVR", () => PlacesVR);

@@ -6,7 +6,14 @@ import {
   VrButton,
   Environment,
   asset,
+  AppRegistry,
+  NativeModules,
 } from "react-360";
+
+import SignIn from "../SignIn/SignIn"
+import SignUp from "../SignUp/SignUp"
+import {registerKeyboard} from 'react-360-keyboard';
+AppRegistry.registerComponent(...registerKeyboard);
 
 export default class Landing extends React.Component {
 
@@ -52,6 +59,13 @@ state = {
     }
   }
 
+  onInputClick() {
+          // 4.) show the keyboard
+    NativeModules.Keyboard.startInput({
+        placeholder: 'Enter your name',
+      }).then(input => console.log(input));
+  }
+
   render() {
     if(!this.state.loggedIn) {
       
@@ -86,6 +100,14 @@ state = {
             >
               <Text style={styles.clearText}>Clear</Text>
             </VrButton>
+
+            <VrButton
+              onClick={this.onInputClick}
+              style={styles.clearBox}
+            >
+              <Text style={styles.clearText}>Show keyboard</Text>
+            </VrButton>
+            
           </View>
         </View>
       );
