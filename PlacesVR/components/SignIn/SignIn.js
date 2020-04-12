@@ -55,7 +55,7 @@ export default class SignIn extends React.Component {
       );
   }
 
-    // see TODO above 
+    // see TODO above
 //   displayAsterisksForPassword = () => {
 //       const length = this.state.userData.password.length;
 //       console.log('in here', length);
