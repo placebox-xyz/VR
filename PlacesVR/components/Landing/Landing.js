@@ -65,7 +65,7 @@ export default class Landing extends React.Component {
           // 4.) show the keyboard
     NativeModules.Keyboard.startInput({
         placeholder: 'Enter your name',
-      }).then(input => console.log(input));
+      }).then(input => console.log("input is: ", input));
   }
 
   render() {

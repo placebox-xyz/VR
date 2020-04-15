@@ -20,7 +20,7 @@ export default class SignIn extends React.Component {
         email: "",
         password: "",
         // TODO: get password to be * as placeholder instead of actual chars
-        // passwordPlaceholder: "",
+        passwordPlaceholder: "",
       },
       error: "",
       loggingIn: false,
@@ -29,44 +29,49 @@ export default class SignIn extends React.Component {
 
   handleEmailInputChange() {
     NativeModules.Keyboard.startInput({
-      placeholder: "Enter your email",
+      placeholder: "Email",
+      dictation: false,
+      returnKeyLabel: "Submit",
+      emoji: false,
     }).then((input) =>
       this.setState((prevState) => ({
         userData: {
           ...prevState.userData,
-          email: input,
+          email: input ? input : "", 
         },
       }))
     );
   }
 
-  // TODO: error when return is blank
+  // TODO: insert *'s as values instead of the actual input
   handlePasswordInputChange() {
     NativeModules.Keyboard.startInput({
-        placeholder: "Enter your password",
+        placeholder: "Password",
+        dictation: false,
+        returnKeyLabel: "Submit",
+        emoji: false,
       }).then((input) =>
         this.setState((prevState) => ({
           userData: {
             ...prevState.userData,
-            password: input,
-            // passwordPlaceholder: th,
+            password: input ? input : "", 
+            passwordPlaceholder: input ? this.displayAsterisksForPassword(input) : "",
           },
         }))
       );
   }
 
     // see TODO above
-//   displayAsterisksForPassword = () => {
-//       const length = this.state.userData.password.length;
-//       console.log('in here', length);
-//       let p = "";
-//       let i = 0;
-//       while (i < length) {
-//         p.concat("o");
-//       }
-
-//       return p;
-//   }
+  displayAsterisksForPassword(input) {
+      const length = input.length;
+      let p = "";
+      let i = 0;
+      while (i < length) {
+        p = p.concat("*");
+        i += 1;
+      }
+      return p;
+  }
 
   render() {
     return (
@@ -87,7 +92,7 @@ export default class SignIn extends React.Component {
           <Text style={styles.greeting}>
             {this.state.userData.password === ""
               ? "Password"
-              : this.state.userData.password}
+              : this.state.userData.passwordPlaceholder}
           </Text>
         </VrButton>
 
