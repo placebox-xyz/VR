@@ -16,8 +16,8 @@ import SignIn from "./SignIn/SignIn";
 export default class App extends React.Component {
   render() {
     return (
-      //<Landing />
-      <SignIn />
+      <Landing />
+      //<SignIn /> 
     );
   }
 };
