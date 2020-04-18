@@ -9,7 +9,8 @@ import {
   AppRegistry,
   NativeModules,
 } from "react-360";
-
+import fire from "../../Firebase";
+import axios from "axios";
 // keyboard: https://github.com/danielbuechele/react-360-keyboard
 
 export default class SignIn extends React.Component {
@@ -27,6 +28,107 @@ export default class SignIn extends React.Component {
       hasAccount: true,
     };
   }
+
+  signUserIn = (e) => {
+    fire
+      .auth()
+      .signInWithEmailAndPassword("a@a.com", "Aaaaaa")
+      .then((response) => {
+        console.log("user signed in: ", response);
+        db.collection("users")
+          .doc("a@a.com")
+          .get()
+          .then((response) => {
+            console.log("got user data: ", response.data());
+          })
+          .catch(() => console.log("error reading data"));
+      })
+      .catch((error) => console.log("error signing in: ", error));
+  };
+
+  createUser = (userData) => {
+    console.log("clicked sign up");
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(userData.email, userData.password)
+      .then(() => {
+        console.log("Successfully created user: ", userData.email);
+        axios
+          .post(
+            "https://cors-anywhere.herokuapp.com/https://us-central1-placesvr-3d707.cloudfunctions.net/createNewUser",
+            {
+              name: userData.name,
+              email: userData.email,
+            }
+          )
+          .then((response) => {
+            console.log(
+              "Successfully added user data to db! Received from server: ",
+              response
+            );
+            // this.setState({ message: response.data });
+          })
+          .catch((error) =>
+            console.log("error occurred adding user to db", error)
+          );
+      })
+      .catch((error) => {
+        console.log("error creating user", error);
+      });
+  };
+
+  // createUser = (e) => {
+  //   console.log("user data: ", this.state.userdata);
+  //   fire
+  //     .auth()
+  //     .createUserWithEmailAndPassword(
+  //       this.state.userData.email,
+  //       this.state.userData.password
+  //     )
+  //     .then((user) => {
+  //       console.log("Successfully created user!");
+  //       var addUser = fire.functions().httpsCallable("adduserdata");
+  //       addUser({
+  //         profile: {
+  //           email: this.state.userData.email,
+  //           name: this.state.userData.name,
+  //         },
+  //       })
+  //         .then(function (result) {
+  //           console.log("added user to db, result: ", result);
+  //         })
+  //         .catch(() => console.log("error occurred adding user to db"));
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error creating user (auth)!", error);
+  //     });
+  // };
+
+  // createUser = (e) => {
+  //   console.log("user data: ", this.state.userData);
+  //   fire
+  //     .auth()
+  //     .createUserWithEmailAndPassword(
+  //       this.state.userData.email,
+  //       this.state.userData.password
+  //     )
+  //     .then((user) => {
+  //       console.log("Successfully created user!");
+  //       db.collection("users")
+  //         .doc(this.state.userData.email)
+  //         .set({
+  //           profile: {
+  //             email: this.state.userData.email,
+  //             name: this.state.userData.name,
+  //           },
+  //         })
+  //         .then(() => console.log("Successfully added"))
+  //         .catch((err) => console.log("Error adding data", err));
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error creating user!", error);
+  //     });
+  // };
 
   handleNameInputChange() {
     NativeModules.Keyboard.startInput({
@@ -122,10 +224,7 @@ export default class SignIn extends React.Component {
             </Text>
           </VrButton>
 
-          <VrButton
-            style={styles.submitBox}
-            onClick={() => console.log("user data: ", this.state.userData)}
-          >
+          <VrButton style={styles.submitBox} onClick={(e) => this.signUserIn()}>
             <Text style={styles.greeting}>Submit</Text>
           </VrButton>
 
@@ -188,7 +287,7 @@ export default class SignIn extends React.Component {
 
           <VrButton
             style={styles.submitBox}
-            onClick={() => console.log("user data: ", this.state.userData)}
+            onClick={() => this.createUser(this.state.userData)}
           >
             <Text style={styles.greeting}>Submit</Text>
           </VrButton>
