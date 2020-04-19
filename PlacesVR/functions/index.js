@@ -34,17 +34,28 @@ exports.createNewUser = functions.https.onRequest((request, response) => {
     .catch(() => console.log("SERVER: failed to add user data to db"));
 });
 
-// exports.getCounter = functions.https.onRequest((request, response) => {
-//   admin
-//     .firestore()
-//     .collection("count")
-//     .doc("clicks")
-//     .get()
-//     .then((resp) => {
-//       response.set({
-//         currentVal: resp.val,
-//       });
-//       response.send("current counter value sent");
-//     })
-//     .catch(() => console.log("error getting counter value"));
-// });
+exports.getUserData = functions.https.onRequest((request, response) => {
+  admin
+    .firestore()
+    .collection("users")
+    .doc(request.body.email ? request.body.email : "invalid user")
+    .get()
+    .then((snap) => {
+      response.send(snap.data());
+      // response.send("")
+      // const data = {
+      //   profile: {
+      //     email: resp.profile.email,
+      //     name: resp.profile.name,
+      //   },
+      // };
+      // response.send(data);
+      // response.set({
+      //   profile: {
+
+      //   },
+      // });
+      // response.send("current counter value sent");
+    })
+    .catch(() => console.log("error getting user data"));
+});

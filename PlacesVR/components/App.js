@@ -7,7 +7,6 @@ import {
   Environment,
   asset,
 } from "react-360";
-
 import fire from "../Firebase";
 import Landing from "./Landing/Landing";
 import SignIn from "./SignIn/SignIn";
@@ -47,6 +46,11 @@ export default class App extends React.Component {
     // : null;
   };
 
+  // updateAppUserDataState = (data) => {
+  //   console.log("in here this is the data", data);
+  //   this.setState({ userData: data });
+  // };
+
   render() {
     if (this.state.user) {
       // eventually pass things like current user data
@@ -59,7 +63,7 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return <SignIn />;
+      return <SignIn updateAppUserDataState={this.updateAppUserDataState} />;
     }
   }
 }

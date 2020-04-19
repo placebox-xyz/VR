@@ -9,7 +9,7 @@ import {
   AppRegistry,
   NativeModules,
 } from "react-360";
-
+import axios from "axios";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 import { registerKeyboard } from "react-360-keyboard";
@@ -20,9 +20,9 @@ export default class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       menuHidden: false,
       currentBackground: "360_world.jpg",
+      userData: {},
     };
     props = {
       user: props.user,
@@ -30,10 +30,22 @@ export default class Landing extends React.Component {
     };
   }
 
-  // This method increments our count, triggering a re-render
-  // incrementCount = () => {
-  //   this.setState({count: this.state.count + 1});
-  // };
+  componentDidMount() {
+    console.log("in cdm: landing");
+    axios
+      .post(
+        "https://cors-anywhere.herokuapp.com/https://us-central1-placesvr-3d707.cloudfunctions.net/getUserData",
+        {
+          email: this.props.user,
+        }
+      )
+      .then((response) => {
+        console.log("from getUserData cloudfunction: ", response);
+        this.setState({ userData: response.data });
+      })
+      .catch(() => console.log("failed to get user data"));
+    // this.props.updateAppState;
+  }
 
   hideMenu = () => {
     this.setState({ menuHidden: true });
@@ -75,11 +87,10 @@ export default class Landing extends React.Component {
       .then(() => this.props.updateAppState)
       .catch((err) => console.log("error signing out", err));
   };
-
+  // User: {this.props.user ? this.props.user : ""}
   render() {
-    // if (!this.state.loggedIn) {
-    // }
-    console.log("in landing, user from App: ", this.props.user);
+    // console.log("in landing, user from App: ", this.props.user);
+    console.log("userData in landing: ", this.state.userData);
     if (!this.state.menuHidden) {
       return (
         <View style={styles.panel}>
@@ -90,6 +101,9 @@ export default class Landing extends React.Component {
             <VrButton onClick={this.handleLogout} style={styles.hideMenuBox}>
               <Text style={styles.greeting}>Logout</Text>
             </VrButton>
+            <Text style={styles.greeting}>
+              User: {this.state.userData.profile ? this.state.userData.profile.name : this.props.user}
+            </Text>
           </View>
           <View style={styles.placesPanel}>
             <VrButton
