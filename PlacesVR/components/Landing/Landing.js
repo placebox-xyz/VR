@@ -10,20 +10,25 @@ import {
   NativeModules,
 } from "react-360";
 
-import SignIn from "../SignIn/SignIn"
-import SignUp from "../SignUp/SignUp"
-import {registerKeyboard} from 'react-360-keyboard';
+import SignIn from "../SignIn/SignIn";
+import SignUp from "../SignUp/SignUp";
+import { registerKeyboard } from "react-360-keyboard";
+import fire from "../../Firebase";
 AppRegistry.registerComponent(...registerKeyboard);
 
 export default class Landing extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            loggedIn: false,
-            menuHidden: false,
-            currentBackground: "360_world.jpg",
-          };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      menuHidden: false,
+      currentBackground: "360_world.jpg",
+    };
+    props = {
+      user: props.user,
+      updateAppState: props.updateAppState,
+    };
+  }
 
   // This method increments our count, triggering a re-render
   // incrementCount = () => {
@@ -41,37 +46,40 @@ export default class Landing extends React.Component {
   handleBackgroundChange = (b) => {
     switch (b) {
       case "calg":
-        Environment.setBackgroundImage(
-          asset("calg.jpg"),
-          { format: "2D" }
-        );
+        Environment.setBackgroundImage(asset("calg.jpg"), { format: "2D" });
         break;
       case "watchman":
-        Environment.setBackgroundImage(
-          asset("watchman_trail.jpg"),
-          { format: "2D" } 
-        );
+        Environment.setBackgroundImage(asset("watchman_trail.jpg"), {
+          format: "2D",
+        });
         break;
       default:
-        Environment.setBackgroundImage(
-          asset("360_world.jpg"),
-          { format: "2D" } 
-        );
+        Environment.setBackgroundImage(asset("360_world.jpg"), {
+          format: "2D",
+        });
         break;
     }
-  }
+  };
 
   onInputClick() {
-          // 4.) show the keyboard
+    // 4.) show the keyboard
     NativeModules.Keyboard.startInput({
-        placeholder: 'Enter your name',
-      }).then(input => console.log("input is: ", input));
+      placeholder: "Enter your name",
+    }).then((input) => console.log("input is: ", input));
   }
 
+  handleLogout = () => {
+    fire
+      .auth()
+      .signOut()
+      .then(() => this.props.updateAppState)
+      .catch((err) => console.log("error signing out", err));
+  };
+
   render() {
-    if(!this.state.loggedIn) {
-      
-    }
+    // if (!this.state.loggedIn) {
+    // }
+    console.log("in landing, user from App: ", this.props.user);
     if (!this.state.menuHidden) {
       return (
         <View style={styles.panel}>
@@ -79,9 +87,11 @@ export default class Landing extends React.Component {
             <VrButton onClick={this.hideMenu} style={styles.hideMenuBox}>
               <Text style={styles.greeting}>Hide Menu</Text>
             </VrButton>
+            <VrButton onClick={this.handleLogout} style={styles.hideMenuBox}>
+              <Text style={styles.greeting}>Logout</Text>
+            </VrButton>
           </View>
           <View style={styles.placesPanel}>
-
             <VrButton
               onClick={() => this.handleBackgroundChange("calg")}
               style={styles.greetingBox}
@@ -93,7 +103,9 @@ export default class Landing extends React.Component {
               onClick={() => this.handleBackgroundChange("watchman")}
               style={styles.greetingBox}
             >
-              <Text style={styles.greeting}>Watchman Trail - Zion National Park</Text>
+              <Text style={styles.greeting}>
+                Watchman Trail - Zion National Park
+              </Text>
             </VrButton>
 
             <VrButton
@@ -103,13 +115,9 @@ export default class Landing extends React.Component {
               <Text style={styles.clearText}>Clear</Text>
             </VrButton>
 
-            <VrButton
-              onClick={this.onInputClick}
-              style={styles.clearBox}
-            >
+            <VrButton onClick={this.onInputClick} style={styles.clearBox}>
               <Text style={styles.clearText}>Show keyboard</Text>
             </VrButton>
-            
           </View>
         </View>
       );
@@ -117,11 +125,8 @@ export default class Landing extends React.Component {
       return (
         <View //style={styles.panel}>
         >
-          <VrButton
-            onClick={this.showMenu}
-            style={styles.showMenuBox}
-          >
-            <Text style={{color: "white"}}>Show Menu</Text>
+          <VrButton onClick={this.showMenu} style={styles.showMenuBox}>
+            <Text style={{ color: "white" }}>Show Menu</Text>
           </VrButton>
         </View>
       );
@@ -164,15 +169,15 @@ const styles = StyleSheet.create({
   hideMenuPanel: {},
   hideMenuBox: {
     padding: 1,
-    marginRight: '18px',
-    width: '14px',
+    marginRight: "18px",
+    width: "14px",
     backgroundColor: "#000000",
     borderColor: "#639dda",
     borderWidth: 2,
   },
   showMenuBox: {
-    width: '100px',
+    width: "100px",
     padding: 2,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-  }
+  },
 });

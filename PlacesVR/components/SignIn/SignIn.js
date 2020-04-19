@@ -32,16 +32,9 @@ export default class SignIn extends React.Component {
   signUserIn = (e) => {
     fire
       .auth()
-      .signInWithEmailAndPassword("a@a.com", "Aaaaaa")
+      .signInWithEmailAndPassword("ab@ab.ca", "Aaaaaa")
       .then((response) => {
         console.log("user signed in: ", response);
-        db.collection("users")
-          .doc("a@a.com")
-          .get()
-          .then((response) => {
-            console.log("got user data: ", response.data());
-          })
-          .catch(() => console.log("error reading data"));
       })
       .catch((error) => console.log("error signing in: ", error));
   };

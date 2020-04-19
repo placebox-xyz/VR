@@ -30,22 +30,36 @@ export default class App extends React.Component {
    */
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      console.log("Current User: ", user);
+      console.log("user full json: ", user);
+      // console.log("Current User: ", fire.auth().currentUser.email);
       if (user) {
         this.setState({ user: user });
       } else {
+        console.log("user logged out.");
         this.setState({ user: null });
       }
     });
   }
 
+  updateAppState = () => {
+    this.setState({ user: fire.auth().currentUser });
+    // ? this.setState({ user: fire.auth().currentUser })
+    // : null;
+  };
+
   render() {
     if (this.state.user) {
-      return <Landing />;
-    } else {
+      // eventually pass things like current user data
+      // and a function to update the db of the user data when a photo is
+      // uploaded
       return (
-        <SignIn />
+        <Landing
+          user={fire.auth().currentUser.email}
+          updateAppState={this.updateAppState}
+        />
       );
+    } else {
+      return <SignIn />;
     }
   }
 }
