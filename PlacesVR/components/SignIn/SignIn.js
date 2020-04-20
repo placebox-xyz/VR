@@ -33,7 +33,7 @@ export default class SignIn extends React.Component {
       .auth()
       .signInWithEmailAndPassword("ab@ab.ca", "Aaaaaa")
       .then((response) => {
-        console.log("user signed in: ", response);
+        // console.log("user signed in: ", response);
       })
       .catch((error) => console.log("error signing in: ", error));
   };

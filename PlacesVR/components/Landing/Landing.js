@@ -21,6 +21,7 @@ export default class Landing extends React.Component {
     super(props);
     this.state = {
       menuHidden: false,
+      uploadScreen: false,
       currentBackground: "360_world.jpg",
       userData: {},
     };
@@ -31,7 +32,7 @@ export default class Landing extends React.Component {
   }
 
   componentDidMount() {
-    console.log("in cdm: landing");
+    // console.log("in cdm: landing");
     axios
       .post(
         "https://cors-anywhere.herokuapp.com/https://us-central1-placesvr-3d707.cloudfunctions.net/getUserData",
@@ -46,6 +47,14 @@ export default class Landing extends React.Component {
       .catch(() => console.log("failed to get user data"));
     // this.props.updateAppState;
   }
+
+  showUploadScreen = () => {
+    this.setState({ uploadScreen: true });
+  };
+
+  hideUploadScreen = () => {
+    this.setState({ uploadScreen: false });
+  };
 
   hideMenu = () => {
     this.setState({ menuHidden: true });
@@ -90,58 +99,92 @@ export default class Landing extends React.Component {
   // User: {this.props.user ? this.props.user : ""}
   render() {
     // console.log("in landing, user from App: ", this.props.user);
-    console.log("userData in landing: ", this.state.userData);
+    // console.log("userData in landing: ", this.state.userData);
     if (!this.state.menuHidden) {
-      return (
-        <View style={styles.panel}>
-          <View style={styles.hideMenuPanel}>
-            <VrButton onClick={this.hideMenu} style={styles.hideMenuBox}>
-              <Text style={styles.greeting}>Hide Menu</Text>
-            </VrButton>
-            <VrButton onClick={this.handleLogout} style={styles.hideMenuBox}>
-              <Text style={styles.greeting}>Logout</Text>
-            </VrButton>
-            <Text style={styles.greeting}>
-              User: {this.state.userData.profile ? this.state.userData.profile.name : this.props.user}
-            </Text>
-          </View>
-          <View style={styles.placesPanel}>
-            <VrButton
-              onClick={() => this.handleBackgroundChange("calg")}
-              style={styles.greetingBox}
-            >
-              <Text style={styles.greeting}>Kananaskis</Text>
-            </VrButton>
-
-            <VrButton
-              onClick={() => this.handleBackgroundChange("watchman")}
-              style={styles.greetingBox}
-            >
+      if (!this.state.uploadScreen) {
+        return (
+          <View style={styles.panel}>
+            <View style={styles.hideMenuPanel}>
+              <VrButton onClick={this.hideMenu} style={styles.hideMenuBox}>
+                <Text style={styles.greeting}>Hide Menu</Text>
+              </VrButton>
+              <VrButton onClick={this.handleLogout} style={styles.hideMenuBox}>
+                <Text style={styles.greeting}>Logout</Text>
+              </VrButton>
+              <VrButton
+                onClick={this.showUploadScreen}
+                style={styles.hideMenuBox}
+              >
+                <Text style={styles.greeting}>Upload</Text>
+              </VrButton>
               <Text style={styles.greeting}>
-                Watchman Trail - Zion National Park
+                User:{" "}
+                {this.state.userData.profile
+                  ? this.state.userData.profile.email
+                  : this.props.user}
               </Text>
-            </VrButton>
+            </View>
+            <View style={styles.placesPanel}>
+              <VrButton
+                onClick={() => this.handleBackgroundChange("calg")}
+                style={styles.greetingBox}
+              >
+                <Text style={styles.greeting}>Kananaskis</Text>
+              </VrButton>
 
-            <VrButton
-              onClick={() => this.handleBackgroundChange("")}
-              style={styles.clearBox}
-            >
-              <Text style={styles.clearText}>Clear</Text>
-            </VrButton>
+              <VrButton
+                onClick={() => this.handleBackgroundChange("watchman")}
+                style={styles.greetingBox}
+              >
+                <Text style={styles.greeting}>
+                  Watchman Trail - Zion National Park
+                </Text>
+              </VrButton>
 
-            <VrButton onClick={this.onInputClick} style={styles.clearBox}>
-              <Text style={styles.clearText}>Show keyboard</Text>
-            </VrButton>
+              <VrButton
+                onClick={() => this.handleBackgroundChange("")}
+                style={styles.clearBox}
+              >
+                <Text style={styles.clearText}>Clear</Text>
+              </VrButton>
+
+              <VrButton onClick={this.onInputClick} style={styles.clearBox}>
+                <Text style={styles.clearText}>Show keyboard</Text>
+              </VrButton>
+            </View>
           </View>
-        </View>
-      );
+        );
+      } else {
+        // upload screen
+        return (
+          <View style={styles.panel}>
+            <View style={styles.hideMenuPanel}>
+              <VrButton
+                // need this button with blank text otherwise
+                // it disapears after hiding menu
+                onClick={this.hideUploadScreen}
+                // style={styles.hideMenuBox}
+              >
+                <Text style={styles.greeting}> </Text>
+              </VrButton>
+              <VrButton
+                onClick={this.hideUploadScreen}
+                // style={styles.hideMenuBox}
+              >
+                <Text style={styles.greeting}>Go Back</Text>
+              </VrButton>
+            </View>
+          </View>
+        );
+      }
     } else {
       return (
-        <View //style={styles.panel}>
-        >
-          <VrButton onClick={this.showMenu} style={styles.showMenuBox}>
-            <Text style={{ color: "white" }}>Show Menu</Text>
-          </VrButton>
+        <View style={styles.hiddenPanel}>
+          <View>
+            <VrButton onClick={this.showMenu} style={styles.showMenuBox}>
+              <Text style={{ color: "white" }}>Show Menu</Text>
+            </VrButton>
+          </View>
         </View>
       );
     }
@@ -154,6 +197,11 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 600,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
+  },
+  hiddenPanel: {
+    width: 125,
+    height: 600,
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
   },
   clearText: {
     color: "black",
@@ -182,8 +230,8 @@ const styles = StyleSheet.create({
   },
   hideMenuPanel: {},
   hideMenuBox: {
-    padding: 1,
-    marginRight: "18px",
+    // padding: 1,
+    // marginRight: "18px",
     width: "14px",
     backgroundColor: "#000000",
     borderColor: "#639dda",
@@ -193,5 +241,7 @@ const styles = StyleSheet.create({
     width: "100px",
     padding: 2,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

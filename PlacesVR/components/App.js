@@ -40,6 +40,12 @@ export default class App extends React.Component {
     });
   }
 
+  /**
+   * Allows for App state to be manipulated by child components
+   * need this for when uploading a photo
+   * - upload photo to db --> update state in App which re-renders landing
+   * with the update props (containing new data from the db)
+   */
   updateAppState = () => {
     this.setState({ user: fire.auth().currentUser });
     // ? this.setState({ user: fire.auth().currentUser })
@@ -53,9 +59,6 @@ export default class App extends React.Component {
 
   render() {
     if (this.state.user) {
-      // eventually pass things like current user data
-      // and a function to update the db of the user data when a photo is
-      // uploaded
       return (
         <Landing
           user={fire.auth().currentUser.email}
@@ -67,18 +70,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-/**
- * Allows for App state to be manipulated by child components
- * need this for when uploading a photo
- * - upload photo to db --> update state in App which re-renders landing
- * with the update props (containing new data from the db)
- */
-// updateAppState = ({ compiling, landingHandlers, pdfPath, latexPath }) => {
-//   this.setState({
-//     ...(pdfPath != undefined && { pdfPath }),
-//     ...(latexPath != undefined && { latexPath }),
-//     ...(compiling != undefined && { compiling }),
-//     ...(landingHandlers != undefined && { landingHandlers }),
-//   });
-// };
