@@ -1,0 +1,34 @@
+<!-- // nicostepan.me/VR/sample/index.html?firebase_uqujhe= ... -->
+
+<html>
+  <head>
+    <title>sample</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+  </head>
+  <body>
+    <!-- Attachment point for your app -->
+    <div id="container"></div>
+    <script src="./client.bundle.js"></script>
+    <script>
+      var url_string = window.location.href;
+      // console.log("url string: ", url_string);
+      var url_array = url_string.split("firebase_uqujhe=");
+      React360.init(
+        "index.bundle.js",
+        document.getElementById("container"),
+        {
+          picToRender: url_array[1],
+          assetRoot: "static_assets/",
+        }
+      );
+    </script>
+  </body>
+</html>
