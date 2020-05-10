@@ -20,14 +20,21 @@
         measurementId: "G-NPEBP42SDV",
       };
       // Initialize Firebase
-      var fire = firebase.initializeApp(firebaseConfig);
+      var fire = admin.initializeApp(firebaseConfig);
 
       var storage = fire.storage();
       var storageRef = storage.ref();
-      var picRef = storageRef.child("users/hope@hope.ca/chester_lake.JPG");
-      picRef.getDownloadURL().then(function (url) {
-        document.querySelector("img").src = url;
-      });
+      var picRef = storageRef.child(
+        "users/hope@hope.ca/images/chester_lake.JPG"
+      );
+      picRef
+        .getDownloadURL()
+        .then(function (url) {
+          document.querySelector("img").src = url;
+        })
+        .catch((err) => {
+          console.log("error getting data: ", err);
+        });
     </script>
     <a-scene>
       <a-assets>
