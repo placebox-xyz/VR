@@ -1,18 +1,43 @@
 <html>
   <head>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   </head>
   <body>
-  <a-scene>
-  <a-assets>
-    <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
-    <img id="skyTexture"
-      src="https://firebasestorage.googleapis.com/v0/b/latexlab-51e45.appspot.com/o/users%2Faa%40zz.ca%2Fimages%2Fchester_lake.JPG?alt=media&token=2521a416-3899-441e-a843-66f2b1318e44">
-  </a-assets>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAqvRraXy8jJy35JKxS9T9_Wx5VdQErgJE",
+        authDomain: "placesvr-3d707.firebaseapp.com",
+        databaseURL: "https://placesvr-3d707.firebaseio.com",
+        projectId: "placesvr-3d707",
+        storageBucket: "placesvr-3d707.appspot.com",
+        messagingSenderId: "729487849362",
+        appId: "1:729487849362:web:c6c6305d542a3f9030734b",
+        measurementId: "G-NPEBP42SDV",
+      };
+      // Initialize Firebase
+      var fire = firebase.initializeApp(firebaseConfig);
 
-  <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+      var storageRef = fire.storage().ref();
+      var picRef = storageRef.child("users/hope@hope.ca/chester_lake.JPG");
+      picRef.getDownloadURL().then(function (url) {
+        <a-scene>
+          <a-assets>
+            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg" />
+            <img id="skyTexture" src={url} />
+          </a-assets>
 
-  <a-sky src="#skyTexture"></a-sky>
-</a-scene>
+          <a-box
+            src="#boxTexture"
+            position="0 2 -5"
+            rotation="0 45 45"
+            scale="2 2 2"
+          ></a-box>
+
+          <a-sky src="#skyTexture"></a-sky>
+        </a-scene>;
+      });
+    </script>
   </body>
 </html>
