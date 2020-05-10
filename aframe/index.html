@@ -21,12 +21,14 @@
       };
       // Initialize Firebase
       var fire = firebase.initializeApp(firebaseConfig);
-
-      var storage = fire.storage();
+      var storageRef = fire.storage().ref();
+      
       var url_string = window.location.href;
-      var url_array = url_string.split("firebase_uqujhe=");
-      var picRef = storage.refFromURL(url_array[1]);
+      var url = new URL(url_string);
+      var user = url.searchParams.get("user");
+      var file = url.searchParams.get("file");
 
+      var picRef = storageRef.child(`users/${user}/images/${file}`);
       picRef
         .getDownloadURL()
         .then(function (url) {
