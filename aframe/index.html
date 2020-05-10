@@ -6,6 +6,7 @@
   <body>
     <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-admin.js"></script>
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
@@ -19,7 +20,7 @@
         measurementId: "G-NPEBP42SDV",
       };
       // Initialize Firebase
-      var fire = firebase.initializeApp(firebaseConfig);
+      var fire = admin.initializeApp(firebaseConfig);
 
       var storage = fire.storage();
       var storageRef = storage.ref();
