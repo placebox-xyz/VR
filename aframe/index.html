@@ -18,9 +18,10 @@
         measurementId: "G-NPEBP42SDV",
       };
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      var fire = firebase.initializeApp(firebaseConfig);
 
-      var storageRef = firebase.storage().ref();
+      var storage = fire.storage();
+      var storageRef = storage.ref();
       var picRef = storageRef.child("users/hope@hope.ca/chester_lake.JPG");
       picRef.getDownloadURL().then(function (url) {
         document.querySelector("img").src = url;
@@ -28,7 +29,7 @@
     </script>
     <a-scene>
       <a-assets>
-        <img id="skyTexture" />
+        <img id="skyTexture" crossorigin="anonymous" />
       </a-assets>
       <a-sky src="#skyTexture"></a-sky>
     </a-scene>
