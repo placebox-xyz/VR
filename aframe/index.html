@@ -23,10 +23,10 @@
       var fire = firebase.initializeApp(firebaseConfig);
 
       var storage = fire.storage();
-      var storageRef = storage.ref();
-      var picRef = storageRef.child(
-        "users/hope@hope.ca/images/chester_lake.JPG"
-      );
+      var url_string = window.location.href;
+      var url_array = url_string.split("firebase_uqujhe=");
+      var picRef = storage.refFromURL(url_array[1]);
+
       picRef
         .getDownloadURL()
         .then(function (url) {
@@ -36,7 +36,9 @@
           console.log("error getting data: ", err);
         });
     </script>
-    <a-scene>
+    <a-scene
+      loading-screen="dotsColor: #4de4c6; backgroundColor: rgb(36,37,38)"
+    >
       <a-assets>
         <img id="skyTexture" crossorigin="anonymous" />
       </a-assets>
