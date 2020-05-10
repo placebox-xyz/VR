@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
@@ -17,27 +18,19 @@
         measurementId: "G-NPEBP42SDV",
       };
       // Initialize Firebase
-      var fire = firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(firebaseConfig);
 
-      var storageRef = fire.storage().ref();
+      var storageRef = firebase.storage().ref();
       var picRef = storageRef.child("users/hope@hope.ca/chester_lake.JPG");
       picRef.getDownloadURL().then(function (url) {
-        <a-scene>
-          <a-assets>
-            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg" />
-            <img id="skyTexture" src={url} />
-          </a-assets>
-
-          <a-box
-            src="#boxTexture"
-            position="0 2 -5"
-            rotation="0 45 45"
-            scale="2 2 2"
-          ></a-box>
-
-          <a-sky src="#skyTexture"></a-sky>
-        </a-scene>;
+        document.querySelector("img").src = url;
       });
     </script>
+    <a-scene>
+      <a-assets>
+        <img id="skyTexture" />
+      </a-assets>
+      <a-sky src="#skyTexture"></a-sky>
+    </a-scene>
   </body>
 </html>
