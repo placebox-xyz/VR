@@ -22,7 +22,7 @@
       // Initialize Firebase
       var fire = firebase.initializeApp(firebaseConfig);
       var storageRef = fire.storage().ref();
-
+      
       var url_string = window.location.href;
       var url = new URL(url_string);
       var user = url.searchParams.get("user");
@@ -38,10 +38,7 @@
           console.log("error getting data: ", err);
         });
     </script>
-    <a-scene
-      vr-mode-ui="enabled: false"
-      loading-screen="dotsColor: #4de4c6; backgroundColor: black"
-    >
+    <a-scene loading-screen="dotsColor: #4de4c6; backgroundColor: black">
       <a-assets>
         <img id="skyTexture" crossorigin="anonymous" />
       </a-assets>
