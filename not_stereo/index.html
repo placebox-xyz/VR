@@ -1,16 +1,14 @@
 <!-- local server: python3 -m http.server 8003 -->
 <html>
   <head>
-    <title>Stereoscopic</title>
+    <title>Not Stereoscopic</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="aframe-stereo-component.js.min.js"></script>
   </head>
   <body>
     <a-scene antialias="true">
       <!-- Paths to left and right images -->
       <a-assets>
         <img id="left" crossorigin="anonymous" src="./unicorn_left.jpg" />
-        <img id="right" crossorigin="anonymous" src="./unicorn_right.jpg" />
       </a-assets>
 
       <!-- Camera -->
@@ -18,12 +16,10 @@
         camera
         look-controls
         position="0 0 0"
-        stereocam="eye:left;"
       ></a-entity>
 
       <!-- Sky sphere -->
-      <a-sky id="sky1" src="#left" stereo="split:vertical eye:left"></a-sky>
-      <a-sky id="sky2" src="#right" stereo="eye:right"></a-sky>
+      <a-sky id="sky1" src="#left"></a-sky>
 
       <!--<a-sky id="sky1" src="http://i.imgur.com/YAaxpv6.jpg" stereo="eye:left"></a-sky>-->
       <!--<a-sky id="sky2" src="http://i.imgur.com/JUxTnzK.jpg" stereo="eye:right"></a-sky>-->
