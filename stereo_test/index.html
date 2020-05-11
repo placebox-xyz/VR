@@ -1,16 +1,24 @@
-<!-- local server: python3 -m http.server 8003 -->
 <html>
   <head>
     <title>Stereoscopic</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="aframe-stereo-component.js.min.js"></script>
+    <!-- <script src="aframe-stereo-component.js"></script> -->
+    <script src="aframe-stereo-component.min.js"></script>
   </head>
   <body>
     <a-scene antialias="true">
       <!-- Paths to left and right images -->
       <a-assets>
-        <img id="left" crossorigin="anonymous" src="./dinoL.png" />
-        <img id="right" crossorigin="anonymous" src="./dinoR.png" />
+        <img
+          id="left"
+          crossorigin="anonymous"
+          src="http://i.imgur.com/YAaxpv6.jpg"
+        />
+        <img
+          id="right"
+          crossorigin="anonymous"
+          src="http://i.imgur.com/JUxTnzK.jpg"
+        />
       </a-assets>
 
       <!-- Camera -->
@@ -27,7 +35,6 @@
 
       <!--<a-sky id="sky1" src="http://i.imgur.com/YAaxpv6.jpg" stereo="eye:left"></a-sky>-->
       <!--<a-sky id="sky2" src="http://i.imgur.com/JUxTnzK.jpg" stereo="eye:right"></a-sky>-->
-      <a-camera look-controls="reverseMouseDrag: true" />
     </a-scene>
   </body>
 </html>
