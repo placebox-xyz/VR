@@ -9,8 +9,8 @@
     <a-scene antialias="true">
       <!-- Paths to left and right images -->
       <a-assets>
-        <img id="left" crossorigin="anonymous" src="./unicorn_left.jpg" />
-        <img id="right" crossorigin="anonymous" src="./unicorn_right.jpg" />
+        <img id="left" crossorigin="anonymous" src="./dinoL.png" />
+        <img id="right" crossorigin="anonymous" src="./dinoR.png" />
       </a-assets>
 
       <!-- Camera -->
@@ -22,7 +22,7 @@
       ></a-entity>
 
       <!-- Sky sphere -->
-      <a-sky id="sky1" src="#left" stereo="split:vertical eye:left"></a-sky>
+      <a-sky id="sky1" src="#left" stereo="eye:left"></a-sky>
       <a-sky id="sky2" src="#right" stereo="eye:right"></a-sky>
 
       <!--<a-sky id="sky1" src="http://i.imgur.com/YAaxpv6.jpg" stereo="eye:left"></a-sky>-->
