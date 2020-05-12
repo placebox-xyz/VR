@@ -97,7 +97,7 @@ export class Scene extends Node {
         // hand (as opposed to their head or the screen) use it to render
         // a ray coming out of the input device to indicate the pointer
         // direction.
-        // this.inputRenderer.addLaserPointer(targetRayPose.transform);
+        this.inputRenderer.addLaserPointer(targetRayPose.transform);
       }
 
       // If we have a pointer matrix we can also use it to render a cursor
@@ -108,7 +108,7 @@ export class Scene extends Node {
 
       if (hitResult) {
         // Render a cursor at the intersection point.
-        // this.inputRenderer.addCursor(hitResult.intersection);
+        this.inputRenderer.addCursor(hitResult.intersection);
 
         if (hitResult.node._hoverFrameId != lastHoverFrame) {
           hitResult.node.onHoverStart();
@@ -132,6 +132,8 @@ export class Scene extends Node {
             ]);
         // let cursorPos = vec3.fromValues(0, 0, -1.0);
         // vec3.transformMat4(cursorPos, cursorPos, inputPose.targetRay);
+        
+        // this guy causes the cursor to show up when clicked
         // this.inputRenderer.addCursor(cursorPos);
       }
 
@@ -141,7 +143,7 @@ export class Scene extends Node {
         // Any time that we have a grip matrix, we'll render a controller.
         // no.. we won't render anything :)
         if (gripPose) {
-          // this.inputRenderer.addController(gripPose.transform.matrix, inputSource.handedness);
+          this.inputRenderer.addController(gripPose.transform.matrix, inputSource.handedness);
         }
       }
       
