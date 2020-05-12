@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>TopBottom Stereoscopic</title>
+    <script src="./build.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-camera
+        look-controls="reverseMouseDrag: true"
+        position="0 0 0"
+        stereocam="eye:left;"
+      ></a-camera>
+
+      <a-entity id="display" overunder="./chess-pano-4k.jpg"></a-entity>
+    </a-scene>
+  </body>
+</html>
