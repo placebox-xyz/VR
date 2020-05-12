@@ -34,13 +34,17 @@ would be cool to add the title and description in that box :)
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
-    <link rel='icon' type='image/png' sizes='32x32' href='favicon-32x32.png'>
-    <link rel='icon' type='image/png' sizes='96x96' href='favicon-96x96.png'>
+    <!-- add favicon later -->
+    <!-- <link rel='icon' type='image/png' sizes='32x32' href='favicon-32x32.png'>
+    <link rel='icon' type='image/png' sizes='96x96' href='favicon-96x96.png'> -->
     <link rel='stylesheet' href='css/common.css'>
 
     <title>PlaceboxVR</title>
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
     <div style="margin: 0 auto;">
 
     
@@ -65,9 +69,35 @@ would be cool to add the title and description in that box :)
       import {SkyboxNode} from './js/render/nodes/skybox.js';
       import {InlineViewerHelper} from './js/util/inline-viewer-helper.js';
 
-      // If requested, use the polyfill to provide support for mobile devices
-
-      // XR globals.
+      var firebaseConfig = {
+        apiKey: "AIzaSyAqvRraXy8jJy35JKxS9T9_Wx5VdQErgJE",
+        authDomain: "placesvr-3d707.firebaseapp.com",
+        databaseURL: "https://placesvr-3d707.firebaseio.com",
+        projectId: "placesvr-3d707",
+        storageBucket: "placesvr-3d707.appspot.com",
+        messagingSenderId: "729487849362",
+        appId: "1:729487849362:web:c6c6305d542a3f9030734b",
+        measurementId: "G-NPEBP42SDV",
+      };
+      // Initialize Firebase
+      var fire = firebase.initializeApp(firebaseConfig);
+      var storageRef = fire.storage().ref();
+      
+      // var url_string = window.location.href;
+      // var url = new URL(url_string);
+      // var user = url.searchParams.get("user");
+      // var file = url.searchParams.get("file");
+      // var type = url.searchParams.get("type");
+      // var picRef = storageRef.child('users/hoper/images/calg.JPG');
+      // var picRef = storageRef.child('users/hoper/images/angels_landing.JPG');
+      var picRef = storageRef.child('users/hoper/images/chess-pano-4k.jpg');
+      var imageURL;
+      picRef
+        .getDownloadURL()
+        .then(function (url) {
+          // console.log("url is: ", url)
+          imageURL = url;
+                // XR globals.
       let xrButton = null;
       let xrImmersiveRefSpace = null;
       let inlineViewerHelper = null;
@@ -76,12 +106,15 @@ would be cool to add the title and description in that box :)
       let gl = null;
       let renderer = null;
       let scene = new Scene();
+      // scene.setAttribute("crossorigin", "anonymous")
 
       // switch statement here for type of photo to render
+      // console.log("imageURL: ", imageURL)
       scene.addNode(new SkyboxNode({
-        url: 'media/textures/chess-pano-4k.jpg',
-        displayMode: 'stereoTopBottom'
-      }));
+        url: imageURL,
+        // displayMode: 'mono' --> for the mono ones
+        displayMode: "stereoTopBottom"
+      }))
 
       function initXR() {
         // remove this part for iframe versions
@@ -203,6 +236,11 @@ would be cool to add the title and description in that box :)
 
       // Start the XR application.
       initXR();
+        })
+        .catch((err) => {
+          console.log("error getting data: ", err);
+        });
+
     </script>
   </body>
 </html>

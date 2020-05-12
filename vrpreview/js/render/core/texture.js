@@ -67,12 +67,12 @@ export class ImageTexture extends Texture {
       if (img.naturalWidth) {
         this._promise = this._finishImage();
       } else {
-        this._promise = Promise.reject('Image provided had failed to load.');
+        this._promise = Promise.reject("Image provided had failed to load.");
       }
     } else {
       this._promise = new Promise((resolve, reject) => {
-        img.addEventListener('load', () => resolve(this._finishImage()));
-        img.addEventListener('error', reject);
+        img.addEventListener("load", () => resolve(this._finishImage()));
+        img.addEventListener("error", reject);
       });
     }
   }
@@ -121,6 +121,7 @@ export class ImageTexture extends Texture {
 export class UrlTexture extends ImageTexture {
   constructor(url) {
     let img = new Image();
+    img.setAttribute("crossorigin", "anonymous");
     super(img);
     img.src = url;
   }
@@ -146,8 +147,8 @@ export class VideoTexture extends Texture {
       this._promise = Promise.reject(video.error);
     } else {
       this._promise = new Promise((resolve, reject) => {
-        video.addEventListener('loadeddata', () => resolve(this));
-        video.addEventListener('error', reject);
+        video.addEventListener("loadeddata", () => resolve(this));
+        video.addEventListener("error", reject);
       });
     }
   }
@@ -210,7 +211,12 @@ export class DataTexture extends Texture {
 
 export class ColorTexture extends DataTexture {
   constructor(r, g, b, a) {
-    let colorData = new Uint8Array([r*255.0, g*255.0, b*255.0, a*255.0]);
+    let colorData = new Uint8Array([
+      r * 255.0,
+      g * 255.0,
+      b * 255.0,
+      a * 255.0,
+    ]);
     super(colorData, 1, 1);
 
     this.mipmap = false;

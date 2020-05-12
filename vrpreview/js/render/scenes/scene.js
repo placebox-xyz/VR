@@ -134,6 +134,8 @@ export class Scene extends Node {
         // vec3.transformMat4(cursorPos, cursorPos, inputPose.targetRay);
         
         // this guy causes the cursor to show up when clicked
+        // makes it so that in VR the cursor shows up as a white dot as if hitting the end of an object
+        // could potentially play around with this
         // this.inputRenderer.addCursor(cursorPos);
       }
 
@@ -141,7 +143,7 @@ export class Scene extends Node {
         let gripPose = frame.getPose(inputSource.gripSpace, refSpace);
 
         // Any time that we have a grip matrix, we'll render a controller.
-        // no.. we won't render anything :)
+        // renders the controller (really cool)
         if (gripPose) {
           this.inputRenderer.addController(gripPose.transform.matrix, inputSource.handedness);
         }
