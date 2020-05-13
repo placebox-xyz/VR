@@ -50,9 +50,10 @@ would be cool to add the title and description in that box :)
     
     <header style="background-color: rgb(36,37,38); border-radius: 15px; width: fit-content;">
       <details open style="margin: 0 auto">
-        
+        <!-- eventually figure out how to write stuff here -->
         <!-- title from URL -->
-        <summary style="color: #4de4c6">360 Photos</summary>
+        <summary style="color: #4de4c6; font-size: 24px;" id="title"></summary>
+        <p style="color: white;" id="signature"></p>
         <div>
           <h2>
 
@@ -83,14 +84,18 @@ would be cool to add the title and description in that box :)
       var fire = firebase.initializeApp(firebaseConfig);
       var storageRef = fire.storage().ref();
       
-      // var url_string = window.location.href;
-      // var url = new URL(url_string);
-      // var user = url.searchParams.get("user");
-      // var file = url.searchParams.get("file");
-      // var type = url.searchParams.get("type");
-      // var picRef = storageRef.child('users/hoper/images/calg.JPG');
-      // var picRef = storageRef.child('users/hoper/images/angels_landing.JPG');
-      var picRef = storageRef.child('users/hoper/images/chess-pano-4k.jpg');
+      // http://localhost:8010/?user=hoper&file=chess-pano-4k.jpg&type=stereoTopBottom&title=Chess
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var user = url.searchParams.get("user");
+      var file = url.searchParams.get("file");
+      var type = url.searchParams.get("type");
+      var title = url.searchParams.get("title");
+
+      document.getElementById("title").innerHTML = title;
+      document.getElementById("signature").innerHTML = `Posted by: ${user}`;
+
+      var picRef = storageRef.child(`users/${user}/images/${file}`);
       var imageURL;
       picRef
         .getDownloadURL()
@@ -106,14 +111,12 @@ would be cool to add the title and description in that box :)
       let gl = null;
       let renderer = null;
       let scene = new Scene();
-      // scene.setAttribute("crossorigin", "anonymous")
 
       // switch statement here for type of photo to render
-      // console.log("imageURL: ", imageURL)
       scene.addNode(new SkyboxNode({
         url: imageURL,
-        // displayMode: 'mono' --> for the mono ones
-        displayMode: "stereoTopBottom"
+        // displayMode: 'mono' || 'stereoTopBottom' || 'stereoLeftRight'
+        displayMode: type
       }))
 
       function initXR() {
