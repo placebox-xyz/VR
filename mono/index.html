@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  </head>
+  <body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAqvRraXy8jJy35JKxS9T9_Wx5VdQErgJE",
+        authDomain: "placesvr-3d707.firebaseapp.com",
+        databaseURL: "https://placesvr-3d707.firebaseio.com",
+        projectId: "placesvr-3d707",
+        storageBucket: "placesvr-3d707.appspot.com",
+        messagingSenderId: "729487849362",
+        appId: "1:729487849362:web:c6c6305d542a3f9030734b",
+        measurementId: "G-NPEBP42SDV",
+      };
+      // Initialize Firebase
+      var fire = firebase.initializeApp(firebaseConfig);
+      var storageRef = fire.storage().ref();
+
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var user = url.searchParams.get("user");
+      var file = url.searchParams.get("file");
+
+      var picRef = storageRef.child(`users/${user}/images/${file}`);
+      picRef
+        .getDownloadURL()
+        .then(function (url) {
+          document.querySelector("img").src = url;
+        })
+        .catch((err) => {
+          console.log("error getting data: ", err);
+        });
+    </script>
+    <a-scene loading-screen="dotsColor: #4de4c6; backgroundColor: black">
+      <a-assets>
+        <img id="skyTexture" crossorigin="anonymous" />
+      </a-assets>
+      <a-sky src="#skyTexture"></a-sky>
+      <a-camera look-controls="reverseMouseDrag: true" />
+    </a-scene>
+  </body>
+</html>
