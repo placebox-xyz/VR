@@ -1,0 +1,39 @@
+{
+  "name": "aframe-overunder-viewer",
+  "version": "1.0.0",
+  "description": "Over/under Panorama Viewer for A-Frame.",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify main.js -o build.js",
+    "dev": "budo main.js:build.js --port 8000 --live --open",
+    "dist": "webpack index.js dist/aframe-overunder-viewer.js && webpack -p index.js dist/aframe-overunder-viewer.min.js",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryik/overunder-viewer.git"
+  },
+  "keywords": [
+    "aframe",
+    "aframe-component",
+    "aframe-vr",
+    "vr",
+    "mozvr",
+    "webvr"
+  ],
+  "author": "Ben Pyrik <ben@wsundine.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bryik/overunder-viewer/issues"
+  },
+  "homepage": "https://github.com/bryik/overunder-viewer#readme",
+  "devDependencies": {
+    "aframe": "^1.0.4",
+    "browserify": "^16.5.1",
+    "browserify-css": "^0.15.0",
+    "budo": "^11.6.3",
+    "envify": "^4.1.0",
+    "prettier": "^2.0.5",
+    "webpack": "^2.5.1"
+  }
+}

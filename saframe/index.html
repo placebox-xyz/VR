@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title>Overunder Panorama Viewer - Basic</title>
     <script src="./build.js"></script>
-    <!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
   </head>
   <body>
     <a-scene>
@@ -14,10 +13,7 @@
         stereocam="eye:left;"
       ></a-camera>
 
-      <a-entity
-        id="display"
-        overunder="https://firebasestorage.googleapis.com/v0/b/placesvr-3d707.appspot.com/o/users%2Fhoper%2Fimages%2Fchess-pano-4k%20copy.jpg?alt=media&token=46f1eee4-044c-499a-a4dc-cba1f604f558"
-      ></a-entity>
+      <a-entity id="display" overunder="./witness_painter.jpg"></a-entity>
     </a-scene>
   </body>
 </html>
