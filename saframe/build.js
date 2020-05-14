@@ -24,23 +24,25 @@ AFRAME.registerComponent("overunder", {
    * Called once when component is attached. Generally for initial setup.
    */
   init: function () {
+    console.log("in here");
     var self = this;
     var el = this.el;
     var url = this.data;
     this.updateTexture = false; // Flag that determines whether to update image sphere
 
+    document.body.style.backgroundColor = "black";
     var container = document.createElement("div");
     document.body.appendChild(container);
-
+    
     var info = document.createElement("div");
-    info.style.color = "red";
-    info.style.position = "absolute";
-    info.style.top = "10px";
-    info.style.width = "100%";
-    info.style.textAlign = "center";
-    info.innerHTML = "Loading!";
+    // info.style.color = "#4de4c6";
+    // info.style.position = "absolute";
+    // info.style.top = "10px";
+    // info.style.width = "100%";
+    // info.style.textAlign = "center";
+    // info.innerHTML = "Loading...";
     container.appendChild(info);
-
+    
     // instantiate a loader
     var loader = new THREE.TextureLoader();
     loader.setCrossOrigin("");
@@ -86,6 +88,7 @@ AFRAME.registerComponent("overunder", {
    * Generally modifies the entity based on the data.
    */
   update: function (oldData) {
+    console.log("in here 21");
     var self = this;
     var url = this.data;
 

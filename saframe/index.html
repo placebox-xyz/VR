@@ -2,18 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Overunder Panorama Viewer - Basic</title>
+    <title>Placebox Stereo Inline</title>
     <script src="./build.js"></script>
   </head>
   <body>
-    <a-scene>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAqvRraXy8jJy35JKxS9T9_Wx5VdQErgJE",
+        authDomain: "placesvr-3d707.firebaseapp.com",
+        databaseURL: "https://placesvr-3d707.firebaseio.com",
+        projectId: "placesvr-3d707",
+        storageBucket: "placesvr-3d707.appspot.com",
+        messagingSenderId: "729487849362",
+        appId: "1:729487849362:web:c6c6305d542a3f9030734b",
+        measurementId: "G-NPEBP42SDV",
+      };
+      // Initialize Firebase
+      var fire = firebase.initializeApp(firebaseConfig);
+      var storageRef = fire.storage().ref();
+
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var user = url.searchParams.get("user");
+      var file = url.searchParams.get("file");
+
+      var picRef = storageRef.child(`users/${user}/images/${file}`);
+      picRef
+        .getDownloadURL()
+        .then(function (url) {
+          // console.log("pic url: ", url);
+          // document.querySelector("a-entity").overunder = url;
+          display.setAttribute("overunder", url);
+        })
+        .catch((err) => {
+          console.log("error getting data: ", err);
+        });
+    </script>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      loading-screen="dotsColor: #4de4c6; backgroundColor: black"
+    >
       <a-camera
         look-controls="reverseMouseDrag: true"
         position="0 0 0"
         stereocam="eye:left;"
       ></a-camera>
 
-      <a-entity id="display" overunder="./witness_painter.jpg"></a-entity>
+      <a-entity id="display"></a-entity>
     </a-scene>
   </body>
 </html>
