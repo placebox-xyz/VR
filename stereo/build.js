@@ -24,7 +24,7 @@ AFRAME.registerComponent("overunder", {
    * Called once when component is attached. Generally for initial setup.
    */
   init: function () {
-    console.log("in here");
+    // console.log("in here");
     var self = this;
     var el = this.el;
     var url = this.data;
@@ -88,7 +88,7 @@ AFRAME.registerComponent("overunder", {
    * Generally modifies the entity based on the data.
    */
   update: function (oldData) {
-    console.log("in here 21");
+    // console.log("in here 21");
     var self = this;
     var url = this.data;
 
