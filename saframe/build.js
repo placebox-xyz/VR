@@ -24,7 +24,7 @@ AFRAME.registerComponent("overunder", {
    * Called once when component is attached. Generally for initial setup.
    */
   init: function () {
-    console.log("in here");
+    // // console.log("in here");
     var self = this;
     var el = this.el;
     var url = this.data;
@@ -73,12 +73,12 @@ AFRAME.registerComponent("overunder", {
       },
       // Function called when download progresses
       function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
         info.innerHTML = (xhr.loaded / xhr.total) * 100 + "% loaded";
       },
       // Function called when download errors
       function (xhr) {
-        console.log("An error happened");
+        // console.log("An error happened");
       }
     );
   },
@@ -88,7 +88,7 @@ AFRAME.registerComponent("overunder", {
    * Generally modifies the entity based on the data.
    */
   update: function (oldData) {
-    console.log("in here 21");
+    // // console.log("in here 21");
     var self = this;
     var url = this.data;
 
@@ -130,12 +130,12 @@ AFRAME.registerComponent("overunder", {
         },
         // Function called when download progresses
         function (xhr) {
-          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+          // console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
           info.innerHTML = (xhr.loaded / xhr.total) * 100 + "% loaded";
         },
         // Function called when download errors
         function (xhr) {
-          console.log("An error happened");
+          // console.log("An error happened");
         }
       );
     } else {
@@ -2452,7 +2452,7 @@ function formatArgs() {
 }
 
 /**
- * Invokes `console.log()` when available.
+ * Invokes `// console.log()` when available.
  * No-op when `console.log` is not a "function".
  *
  * @api public
@@ -3328,7 +3328,7 @@ module.exports = function assertRecord(ES, recordType, argumentName, value) {
   if (!predicate(ES, value)) {
     throw new $TypeError(argumentName + ' must be a ' + recordType);
   }
-  console.log(predicate(ES, value), value);
+  // console.log(predicate(ES, value), value);
 };
 
 },{"../GetIntrinsic":14,"has":28}],17:[function(_dereq_,module,exports){
@@ -16902,7 +16902,7 @@ module.exports = anime;
 
 		setFromObject: function ( object ) {
 
-			// console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
+			// // console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
 
 			var geometry = object.geometry;
 
@@ -19137,7 +19137,7 @@ module.exports = anime;
 
 				} else {
 
-					//console.log('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
+					//// console.log('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
 					changes[ i ] = changes[ verticesMap[ key ] ];
 
 				}
@@ -24293,7 +24293,7 @@ module.exports = anime;
 		if ( status && log === '' ) { return ''; }
 
 		// --enable-privileged-webgl-extension
-		// console.log( '**' + type + '**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
+		// // console.log( '**' + type + '**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
 
 		var source = gl.getShaderSource( shader );
 
@@ -24394,7 +24394,7 @@ module.exports = anime;
 			var info = gl.getActiveAttrib( program, i );
 			var name = info.name;
 
-			// console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
+			// // console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
 
 			attributes[ name ] = gl.getAttribLocation( program, name );
 
@@ -24992,8 +24992,8 @@ module.exports = anime;
 		var vertexGlsl = prefixVertex + vertexShader;
 		var fragmentGlsl = prefixFragment + fragmentShader;
 
-		// console.log( '*VERTEX*', vertexGlsl );
-		// console.log( '*FRAGMENT*', fragmentGlsl );
+		// // console.log( '*VERTEX*', vertexGlsl );
+		// // console.log( '*FRAGMENT*', fragmentGlsl );
 
 		var glVertexShader = WebGLShader( gl, 35633, vertexGlsl );
 		var glFragmentShader = WebGLShader( gl, 35632, fragmentGlsl );
@@ -31012,7 +31012,7 @@ module.exports = anime;
 
 			event.preventDefault();
 
-			console.log( 'THREE.WebGLRenderer: Context Lost.' );
+			// console.log( 'THREE.WebGLRenderer: Context Lost.' );
 
 			_isContextLost = true;
 
@@ -31020,7 +31020,7 @@ module.exports = anime;
 
 		function onContextRestore( /* event */ ) {
 
-			console.log( 'THREE.WebGLRenderer: Context Restored.' );
+			// console.log( 'THREE.WebGLRenderer: Context Restored.' );
 
 			_isContextLost = false;
 
@@ -37596,7 +37596,7 @@ module.exports = anime;
 
 				splineTube = extrudePath.computeFrenetFrames( steps, false );
 
-				// console.log(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
+				// // console.log(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
 
 				binormal = new Vector3();
 				normal = new Vector3();
@@ -37780,14 +37780,14 @@ module.exports = anime;
 
 					if ( direction_eq ) {
 
-						// console.log("Warning: lines are a straight sequence");
+						// // console.log("Warning: lines are a straight sequence");
 						v_trans_x = - v_prev_y;
 						v_trans_y = v_prev_x;
 						shrink_by = Math.sqrt( v_prev_lensq );
 
 					} else {
 
-						// console.log("Warning: lines are a straight spike");
+						// // console.log("Warning: lines are a straight spike");
 						v_trans_x = v_prev_x;
 						v_trans_y = v_prev_y;
 						shrink_by = Math.sqrt( v_prev_lensq / 2 );
@@ -37809,7 +37809,7 @@ module.exports = anime;
 				if ( k === il ) { k = 0; }
 
 				//  (j)---(i)---(k)
-				// console.log('i,j,k', i, j , k)
+				// // console.log('i,j,k', i, j , k)
 
 				contourMovements[ i ] = getBevelVec( contour[ i ], contour[ j ], contour[ k ] );
 
@@ -38089,7 +38089,7 @@ module.exports = anime;
 					k = i - 1;
 					if ( k < 0 ) { k = contour.length - 1; }
 
-					//console.log('b', i,j, i-1, k,vertices.length);
+					//// console.log('b', i,j, i-1, k,vertices.length);
 
 					var s = 0,
 						sl = steps + bevelSegments * 2;
@@ -42544,7 +42544,7 @@ module.exports = anime;
 
 			if ( this.enabled === false ) { return; }
 
-			// console.log( 'THREE.Cache', 'Adding key:', key );
+			// // console.log( 'THREE.Cache', 'Adding key:', key );
 
 			this.files[ key ] = file;
 
@@ -42554,7 +42554,7 @@ module.exports = anime;
 
 			if ( this.enabled === false ) { return; }
 
-			// console.log( 'THREE.Cache', 'Checking key:', key );
+			// // console.log( 'THREE.Cache', 'Checking key:', key );
 
 			return this.files[ key ];
 
@@ -48054,7 +48054,7 @@ module.exports = anime;
 			var holesFirst = ! isClockWise( subPaths[ 0 ].getPoints() );
 			holesFirst = isCCW ? ! holesFirst : holesFirst;
 
-			// console.log("Holes first", holesFirst);
+			// // console.log("Holes first", holesFirst);
 
 			var betterShapeHoles = [];
 			var newShapes = [];
@@ -48082,13 +48082,13 @@ module.exports = anime;
 					if ( holesFirst )	{ mainIdx ++; }
 					newShapeHoles[ mainIdx ] = [];
 
-					//console.log('cw', i);
+					//// console.log('cw', i);
 
 				} else {
 
 					newShapeHoles[ mainIdx ].push( { h: tmpPath, p: tmpPoints[ 0 ] } );
 
-					//console.log('ccw', i);
+					//// console.log('ccw', i);
 
 				}
 
@@ -48146,10 +48146,10 @@ module.exports = anime;
 					}
 
 				}
-				// console.log("ambiguous: ", ambiguous);
+				// // console.log("ambiguous: ", ambiguous);
 				if ( toChange.length > 0 ) {
 
-					// console.log("to change: ", toChange);
+					// // console.log("to change: ", toChange);
 					if ( ! ambiguous )	{ newShapeHoles = betterShapeHoles; }
 
 				}
@@ -48172,7 +48172,7 @@ module.exports = anime;
 
 			}
 
-			//console.log("shape", shapes);
+			//// console.log("shape", shapes);
 
 			return shapes;
 
@@ -55126,7 +55126,7 @@ module.exports = anime;
 
 	Curve.create = function ( construct, getPoint ) {
 
-		console.log( 'THREE.Curve.create() has been deprecated' );
+		// console.log( 'THREE.Curve.create() has been deprecated' );
 
 		construct.prototype = Object.create( Curve.prototype );
 		construct.prototype.constructor = construct;
@@ -57813,7 +57813,7 @@ THREE.DRACOLoader.prototype = Object.assign( Object.create( THREE.Loader.prototy
 
 	debug: function () {
 
-		console.log( 'Task load: ', this.workerPool.map( ( worker ) => worker._taskLoad ) );
+		// console.log( 'Task load: ', this.workerPool.map( ( worker ) => worker._taskLoad ) );
 
 	},
 
@@ -63864,7 +63864,7 @@ function WGLUPreserveGLState(gl, bindings, callback) {
         }
         break;
       default:
-        console.log("No GL restore behavior for 0x" + binding.toString(16));
+        // console.log("No GL restore behavior for 0x" + binding.toString(16));
         break;
     }
     if (activeTexture) {
@@ -65145,7 +65145,7 @@ ComplementaryFilter.prototype.run_ = function () {
   deltaQ.setFromUnitVectors(this.estimatedGravity, this.measuredGravity);
   deltaQ.inverse();
   if (this.isDebug) {
-    console.log('Delta: %d deg, G_est: (%s, %s, %s), G_meas: (%s, %s, %s)', radToDeg * getQuaternionAngle(deltaQ), this.estimatedGravity.x.toFixed(1), this.estimatedGravity.y.toFixed(1), this.estimatedGravity.z.toFixed(1), this.measuredGravity.x.toFixed(1), this.measuredGravity.y.toFixed(1), this.measuredGravity.z.toFixed(1));
+    // console.log('Delta: %d deg, G_est: (%s, %s, %s), G_meas: (%s, %s, %s)', radToDeg * getQuaternionAngle(deltaQ), this.estimatedGravity.x.toFixed(1), this.estimatedGravity.y.toFixed(1), this.estimatedGravity.z.toFixed(1), this.measuredGravity.x.toFixed(1), this.measuredGravity.y.toFixed(1), this.measuredGravity.z.toFixed(1));
   }
   var targetQ = new Quaternion();
   targetQ.copy(this.filterQ);
@@ -65193,7 +65193,7 @@ PosePredictor.prototype.getPrediction = function (currentQ, gyro, timestampS) {
   var angularSpeed = gyro.length();
   if (angularSpeed < degToRad * 20) {
     if (this.isDebug) {
-      console.log('Moving slowly, at %s deg/s: no prediction', (radToDeg * angularSpeed).toFixed(1));
+      // console.log('Moving slowly, at %s deg/s: no prediction', (radToDeg * angularSpeed).toFixed(1));
     }
     this.outQ.copy(currentQ);
     this.previousQ.copy(currentQ);
@@ -66323,7 +66323,7 @@ CardboardVRDisplay.prototype.getEyeParameters = function (whichEye) {
 };
 CardboardVRDisplay.prototype.onDeviceParamsUpdated_ = function (newParams) {
   if (this.config.DEBUG) {
-    console.log('DPDB reported that device params were updated.');
+    // console.log('DPDB reported that device params were updated.');
   }
   this.deviceInfo_.updateDeviceParams(newParams);
   if (this.distorter_) {
@@ -67707,7 +67707,7 @@ function getRawProperty (el, path) {
     value = value[split[i]];
   }
   if (value === undefined) {
-    console.log(el);
+    // console.log(el);
     throw new Error('[animation] property (' + path + ') could not be found');
   }
   return value;
@@ -70914,7 +70914,7 @@ module.exports.Component = registerComponent('magicleap-controls', {
     if (!button) { return; }
     if (button === 'trigger') {
       analogValue = evt.detail.state.value;
-      console.log('analog value of trigger press: ' + analogValue);
+      // console.log('analog value of trigger press: ' + analogValue);
     }
 
     // Pass along changed event with button state, using button mapping for convenience.
@@ -81820,10 +81820,10 @@ _dereq_('./core/a-mixin');
 _dereq_('./extras/components/');
 _dereq_('./extras/primitives/');
 
-console.log('A-Frame Version: 1.0.4 (Date 2020-02-05, Commit #2b359246)');
-console.log('three Version (https://github.com/supermedium/three.js):',
-            pkg.dependencies['super-three']);
-console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
+// console.log('A-Frame Version: 1.0.4 (Date 2020-02-05, Commit #2b359246)');
+// console.log('three Version (https://github.com/supermedium/three.js):',
+            // pkg.dependencies['super-three']);
+// console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
 
 module.exports = window.AFRAME = {
   AComponent: _dereq_('./core/component').Component,
@@ -86132,7 +86132,7 @@ window.rStats = function rStats ( settings ) {
         /*if( _height != _div.clientHeight ) {
             _height = _div.clientHeight;
             _base.style.height = _height + 2 * _elHeight + 'px';
-        console.log( _base.clientHeight );
+        // console.log( _base.clientHeight );
         }*/
 
     }
