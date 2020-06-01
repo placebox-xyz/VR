@@ -35,12 +35,12 @@ AFRAME.registerComponent("overunder", {
     document.body.appendChild(container);
     
     var info = document.createElement("div");
-    // info.style.color = "#4de4c6";
+    info.style.color = "#4de4c6";
     // info.style.position = "absolute";
-    // info.style.top = "10px";
+    info.style.top = "25px";
     // info.style.width = "100%";
-    // info.style.textAlign = "center";
-    // info.innerHTML = "Loading...";
+    info.style.textAlign = "center";
+    info.innerHTML = "Loading...";
     container.appendChild(info);
     
     // instantiate a loader

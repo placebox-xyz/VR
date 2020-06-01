@@ -44,13 +44,32 @@
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault()
       );
+      window.addEventListener("wheel", (event) => {
+        const delta = event.wheelDelta / 120 / 10;
+        var mycam = document.getElementById("cam").getAttribute("camera");
+        var finalZoom =
+          document.getElementById("cam").getAttribute("camera").zoom + delta;
+
+        // limiting the zoom so it doesn't zoom too much in or out
+        if (finalZoom < 0.5) finalZoom = 0.5;
+        if (finalZoom > 2) finalZoom = 2;
+        mycam.zoom = finalZoom;
+
+        //setting the camera element
+        document.getElementById("cam").setAttribute("camera", mycam);
+      });
     </script>
     <a-scene loading-screen="dotsColor: #4de4c6; backgroundColor: black">
-      <a-camera
+      <!-- <a-camera
         look-controls="reverseMouseDrag: true"
         position="0 0 0"
+      ></a-camera> -->
+      <a-entity
         stereocam="eye:left;"
-      ></a-camera>
+        id="cam"
+        camera="zoom: 1"
+        look-controls="reverseMouseDrag: true"
+      ></a-entity>
 
       <a-entity id="display"></a-entity>
     </a-scene>

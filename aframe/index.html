@@ -40,16 +40,35 @@
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault()
       );
+      window.addEventListener("wheel", (event) => {
+        const delta = event.wheelDelta / 120 / 10;
+        var mycam = document.getElementById("cam").getAttribute("camera");
+        var finalZoom =
+          document.getElementById("cam").getAttribute("camera").zoom + delta;
+
+        // limiting the zoom so it doesn't zoom too much in or out
+        if (finalZoom < 0.5) finalZoom = 0.5;
+        if (finalZoom > 2) finalZoom = 2;
+        mycam.zoom = finalZoom;
+
+        //setting the camera element
+        document.getElementById("cam").setAttribute("camera", mycam);
+      });
     </script>
     <a-scene
       vr-mode-ui="enabled: false"
       loading-screen="dotsColor: #4de4c6; backgroundColor: black"
     >
+      <a-entity
+        id="cam"
+        camera="zoom: 1"
+        look-controls="reverseMouseDrag: true"
+      ></a-entity>
+      <!-- my pano image stuff -->
       <a-assets>
         <img id="skyTexture" crossorigin="anonymous" />
       </a-assets>
       <a-sky src="#skyTexture"></a-sky>
-      <a-camera look-controls="reverseMouseDrag: true" />
     </a-scene>
   </body>
 </html>
